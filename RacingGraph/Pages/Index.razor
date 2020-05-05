@@ -6,5 +6,5 @@
 
 Welcome to your new app.
 
-<RacingGraph Dates="new List<DateTime> { DateTime.Today, DateTime.Today, DateTime.Today, DateTime.Today }" NameSelector="x => x.Name" ImageURLSelector="x => x.ImageURL" ScoreListSelector="x => x.StockValue" Height="340px" ItemType="Number" Items="Numbers"/>
+<RacingGraph Comparer="(x, y) => x.Name.CompareTo(y.Name) == 0" Dates="new List<DateTime> { DateTime.Today, DateTime.Today, DateTime.Today, DateTime.Today }" NameSelector="x => x.Name" ImageURLSelector="x => x.ImageURL" ScoreListSelector="x => x.StockValue" Height="340px" ItemType="Number" Items="Numbers"/>
 
