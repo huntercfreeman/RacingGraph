@@ -1,7 +1,7 @@
 ﻿@typeparam ItemType
 @if (RacingGraphObject != null)
 {
-    <div style="@RacingGraphObject.DisplayCSS; position: absolute; top:@(RacingGraphObject.Top)px; display:flex;margin-bottom: 2%;box-sizing: border-box; height: 20%; width: 100%;" class="dm2bdRacingGraphBarContainer">
+    <div style="@RacingGraphObject.DisplayCSS position: absolute; top:@(RacingGraphObject.Top)px; margin-bottom: 2%;box-sizing: border-box; height: 20%; width: 100%;" class="dm2bdRacingGraphBarContainer">
         <div style="width:6%;" class="dm2bdRacingGraphImageContainer">
             <img src="@RacingGraphObject.ImageURLSelector(RacingGraphObject.Item)" style="height: 100%;" />
         </div>

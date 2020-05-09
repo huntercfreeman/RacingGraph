@@ -37,7 +37,7 @@ namespace DM2BD.RacingGraph
 
         public string DisplayCSS
         {
-            get => Index < NumberOfBarsDisplayed ? "" : "display: none;";
+            get => Index < NumberOfBarsDisplayed ? "display: flex;" : "display: none;";
         }
         public bool Animating { get; set; }
 
@@ -63,11 +63,11 @@ namespace DM2BD.RacingGraph
             
             Top = oldTop;
 
-            int animationChange = Math.Abs(oldTop - newTop) / 10;
+            int animationChange = (newTop - oldTop) / 10;
 
             int animationTime = AnimationDelayBetweenDates / 10;
-
-            while ((AnimationDelayBetweenDates -= animationTime) > 0)
+            int delay = AnimationDelayBetweenDates;
+            while ((delay -= animationTime) > 0)
             {
 
                 Top += animationChange;
