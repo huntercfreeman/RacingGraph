@@ -87,7 +87,7 @@ namespace DM2BD.RacingGraph
                             .OrderByDescending(x => (ScoreListSelector(x.Item)).ElementAt(DateIndex));
 
                     RacingGraphObjects = racingGraphObjectsSorted
-                            .Select((x, i) => { x.DateIndex = DateIndex; x.Index = i; x.MaxValue = racingGraphObjectsSorted.ElementAt(0).MaxValue; return x; })
+                            .Select((x, i) => { x.DateIndex = DateIndex; x.Index = i; x.MaxValue = racingGraphObjectsSorted.ElementAt(0).MaxValue; AnimationDelayBetweenDates = AnimationDelayBetweenDates; return x; })
                             .ToList();
                 }
                 await InvokeAsync(StateHasChanged);
