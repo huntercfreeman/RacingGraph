@@ -11,5 +11,13 @@ namespace DM2BD.RacingGraph
         public ItemType Item { get; set; }
         public bool StartAnimation { get; set; }
         public double Top { get; set; }
+        public bool IsDisplayed { get; set; } = true;
+        public string DisplayCSS 
+        { 
+            get
+            {
+                return IsDisplayed ? "" : "display: none;";
+            }
+        }
     }
 }

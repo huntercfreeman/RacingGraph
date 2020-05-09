@@ -67,22 +67,20 @@ namespace DM2BD.RacingGraph
         {
             while(DateIndex != Dates.Count)
             {
-                StartAnimation = true;
 
                 if (DateIndex != 0)
                 {
                     RacingGraphObjectsOrdered = RacingGraphObjectsOrdered
                         .OrderByDescending(x => (ScoreListSelector(x.Item))
                         .ElementAt(DateIndex))
-                        .Select((x, i) => new RacingGraphObject<ItemType> { PreviousIndex = x.Index, Index = i, Item = x.Item, StartAnimation = true })
+                        .Select((x, i) => { x.PreviousIndex = x.Index; x.Index = i; StartAnimation = true; return x; })
                         .ToList();
                 }
                 else
                 {
                     RacingGraphObjectsOrdered = RacingGraphObjects
-                    .OrderByDescending(x => (ScoreListSelector(x.Item))
-                    .ElementAt(DateIndex))
-                    .Select((x, i) => new RacingGraphObject<ItemType> { PreviousIndex = x.Index, Index = i, Item = x.Item, StartAnimation = true })
+                    .OrderByDescending(x => (ScoreListSelector(x.Item)).ElementAt(DateIndex))
+                    .Select((x, i) => new RacingGraphObject<ItemType> { PreviousIndex = 5, Index = i, Item = x.Item, StartAnimation = true })
                     .ToList();
                 }
 
@@ -111,531 +109,840 @@ namespace DM2BD.RacingGraph
                 {
                     Animate(racingGraphObject);
                 }
-
-                StartAnimation = false;
-                await Task.Delay(2000);
+                //AnimationClock();
+                //AnimateScreen();
+                await Task.Delay(2500);
                 DateIndex++;
+            }
+        }
+
+        public async void AnimationClock()
+        {
+            StartAnimation = true;
+            await Task.Delay(1900);
+            StartAnimation = false;
+        }
+
+        public async void AnimateScreen()
+        {
+            while(StartAnimation)
+            {
+                await Task.Delay(10);
+                await InvokeAsync(StateHasChanged);
             }
         }
 
         public async void Animate(RacingGraphObject<ItemType> racingGraphObject) 
         {
-            if (racingGraphObject.StartAnimation)
+            if (racingGraphObject.Index > 3)
             {
-                racingGraphObject.StartAnimation = false;
-                if (racingGraphObject.Index > 3)
+                if (racingGraphObject.PreviousIndex == 0)
                 {
                     racingGraphObject.Top = 0;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
                     racingGraphObject.Top = 10;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
                     racingGraphObject.Top = 20;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
                     racingGraphObject.Top = 30;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
                     racingGraphObject.Top = 40;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
                     racingGraphObject.Top = 50;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
                     racingGraphObject.Top = 60;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
                     racingGraphObject.Top = 70;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
                     racingGraphObject.Top = 80;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
                     racingGraphObject.Top = 90;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
-                    racingGraphObject.Top = 100;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 110;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 120;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 130;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 140;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 150;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 160;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 170;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 180;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 190;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 400;
-                    await InvokeAsync(StateHasChanged);
-                }
-                else if (racingGraphObject.PreviousIndex < 3)
-                {
                     racingGraphObject.Top = 200;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
-                    racingGraphObject.Top = 190;
+                    racingGraphObject.Top = 210;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
-                    racingGraphObject.Top = 180;
+                    racingGraphObject.Top = 220;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
-                    racingGraphObject.Top = 170;
+                    racingGraphObject.Top = 230;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
-                    racingGraphObject.Top = 160;
+                    racingGraphObject.Top = 240;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
-                    racingGraphObject.Top = 150;
+                    racingGraphObject.Top = 250;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
-                    racingGraphObject.Top = 140;
+                    racingGraphObject.Top = 260;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
-                    racingGraphObject.Top = 130;
+                    racingGraphObject.Top = 270;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
-                    racingGraphObject.Top = 120;
+                    racingGraphObject.Top = 280;
                     await InvokeAsync(StateHasChanged);
+
                     await Task.Delay(80);
-                    racingGraphObject.Top = 110;
+                    racingGraphObject.Top = 290;
                     await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 100;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 90;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 80;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 70;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 60;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 50;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 40;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 30;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 20;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 10;
-                    await InvokeAsync(StateHasChanged);
-                    await Task.Delay(80);
-                    racingGraphObject.Top = 0;
-                    await InvokeAsync(StateHasChanged);
-                }
-                else if (racingGraphObject.PreviousIndex == 0)
-                {
-                    if (racingGraphObject.Index == 1)
-                    {
-                        racingGraphObject.Top = -87;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -77;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -67;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -57;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -47;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -37;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -27;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -17;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -7;
-                        await InvokeAsync(StateHasChanged);
-                        racingGraphObject.Top = 0;
-                        await InvokeAsync(StateHasChanged);
-                    }
-                    else if (racingGraphObject.Index == 2)
-                    {
-                        racingGraphObject.Top = -87 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -77 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -67 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -57 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -47 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -37 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -27 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -17 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -7 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        racingGraphObject.Top = 0;
-                        await InvokeAsync(StateHasChanged);
-                    }
-                    else if (racingGraphObject.Index == 3)
-                    {
-                        racingGraphObject.Top = -87 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -77 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -67 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -57 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -47 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -37 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -27 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -17 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -7 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        racingGraphObject.Top = 0;
-                        await InvokeAsync(StateHasChanged);
-                    }
                 }
                 else if (racingGraphObject.PreviousIndex == 1)
                 {
-                    if (racingGraphObject.Index == 0)
-                    {
-                        racingGraphObject.Top = 87;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 77;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 67;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 57;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 47;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 37;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 27;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 17;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 7;
-                        await InvokeAsync(StateHasChanged);
-                        racingGraphObject.Top = 0;
-                        await InvokeAsync(StateHasChanged);
-                    }
-                    else if (racingGraphObject.Index == 2)
-                    {
-                        racingGraphObject.Top = -87;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -77;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -67;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -57;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -47;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -37;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -27;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -17;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -7;
-                        await InvokeAsync(StateHasChanged);
-                        racingGraphObject.Top = 0;
-                        await InvokeAsync(StateHasChanged);
-                    }
-                    else if (racingGraphObject.Index == 3)
-                    {
-                        racingGraphObject.Top = -87 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -77 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -67 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -57 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -47 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -37 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -27 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -17 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -7 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        racingGraphObject.Top = 0;
-                        await InvokeAsync(StateHasChanged);
-                    }
+                    racingGraphObject.Top = 87;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 97;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 107;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 117;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 127;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 137;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 147;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 157;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 167;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 177;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 200;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 210;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 220;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 230;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 240;
+                    await InvokeAsync(StateHasChanged);
+
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 250;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 260;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 270;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 280;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 290;
+                    await InvokeAsync(StateHasChanged);
                 }
                 else if (racingGraphObject.PreviousIndex == 2)
                 {
-                    if (racingGraphObject.Index == 0)
-                    {
-                        racingGraphObject.Top = 87 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 77 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 67 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 57 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 47 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 37 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 27 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 17 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 7 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        racingGraphObject.Top = 0;
-                        await InvokeAsync(StateHasChanged);
-                    }
-                    else if (racingGraphObject.Index == 1)
-                    {
-                        racingGraphObject.Top = 87;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 77;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 67;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 57;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 47;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 37;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 27;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 17;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 7;
-                        await InvokeAsync(StateHasChanged);
-                        racingGraphObject.Top = 0;
-                        await InvokeAsync(StateHasChanged);
-                    }
-                    else if (racingGraphObject.Index == 3)
-                    {
-                        racingGraphObject.Top = -87;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -77;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -67;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -57;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -47;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -37;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -27;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -17;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = -7;
-                        await InvokeAsync(StateHasChanged);
-                        racingGraphObject.Top = 0;
-                        await InvokeAsync(StateHasChanged);
-                    }
+                    racingGraphObject.Top = 87 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 97 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 107 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 117 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 127 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 137 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 147 * 2;
+                    await InvokeAsync(StateHasChanged);
                 }
                 else if (racingGraphObject.PreviousIndex == 3)
                 {
-                    if (racingGraphObject.Index == 0)
-                    {
-                        racingGraphObject.Top = 87 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 77 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 67 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 57 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 47 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 37 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 27 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 17 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 7 * 3;
-                        await InvokeAsync(StateHasChanged);
-                        racingGraphObject.Top = 0;
-                        await InvokeAsync(StateHasChanged);
-                    }
-                    else if (racingGraphObject.Index == 1)
-                    {
-                        racingGraphObject.Top = 87 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 77 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 67 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 57 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 47 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 27 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 27 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 17 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 7 * 2;
-                        await InvokeAsync(StateHasChanged);
-                        racingGraphObject.Top = 0;
-                        await InvokeAsync(StateHasChanged);
-                    }
-                    else if (racingGraphObject.Index == 2)
-                    {
-                        racingGraphObject.Top = 87;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 77;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 67;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 57;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 47;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 27;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 27;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 17;
-                        await InvokeAsync(StateHasChanged);
-                        await Task.Delay(80);
-                        racingGraphObject.Top = 7;
-                        await InvokeAsync(StateHasChanged);
-                        racingGraphObject.Top = 0;
-                        await InvokeAsync(StateHasChanged);
-                    }
+                    racingGraphObject.Top = 87 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 97 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 107 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 117 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 127 * 3;
+                    await InvokeAsync(StateHasChanged);
+                }
+
+                await Task.Delay(80);
+                racingGraphObject.IsDisplayed = false;
+                await InvokeAsync(StateHasChanged);
+            }
+            else if (racingGraphObject.PreviousIndex > 3)
+            {
+                racingGraphObject.Top = 300;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 290;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 280;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 270;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 260;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 250;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 240;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 230;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 220;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 210;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 200;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 90;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 80;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 70;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 60;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 50;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 40;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 30;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 20;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 10;
+                await InvokeAsync(StateHasChanged);
+
+                await Task.Delay(80);
+                racingGraphObject.Top = 0;
+                await InvokeAsync(StateHasChanged);
+
+            }
+            else if (racingGraphObject.PreviousIndex == 0)
+            {
+                if (racingGraphObject.Index == 1)
+                {
+                    racingGraphObject.Top = -87;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -77;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -67;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -57;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -47;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -37;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -27;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -17;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -7;
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = 0;
+                    await InvokeAsync(StateHasChanged);
+                }
+                else if (racingGraphObject.Index == 2)
+                {
+                    racingGraphObject.Top = -87 * 2;
+                    await Task.Delay(80);
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = -77 * 2;
+                    await Task.Delay(80);
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = -67 * 2;
+                    await Task.Delay(80);
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = -57 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -47 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -37 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -27 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -17 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -7 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = 0;
+                    await InvokeAsync(StateHasChanged);
+
+                }
+                else if (racingGraphObject.Index == 3)
+                {
+                    racingGraphObject.Top = -87 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -77 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -67 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -57 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -47 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -37 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -27 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -17 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -7 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = 0;
+                    await InvokeAsync(StateHasChanged);
+                }
+            }
+            else if (racingGraphObject.PreviousIndex == 1)
+            {
+                if (racingGraphObject.Index == 0)
+                {
+                    racingGraphObject.Top = 87;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 77;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 67;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 57;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 47;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 37;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 27;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 17;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 7;
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = 0;
+                    await InvokeAsync(StateHasChanged);
+
+                }
+                else if (racingGraphObject.Index == 2)
+                {
+                    racingGraphObject.Top = -87;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -77;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -67;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -57;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -47;
+                    await InvokeAsync(StateHasChanged);
+                    
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -37;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -27;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -17;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -7;
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = 0;
+                    await InvokeAsync(StateHasChanged);
+
+                }
+                else if (racingGraphObject.Index == 3)
+                {
+                    racingGraphObject.Top = -87 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -77 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -67 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -57 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -47 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -37 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -27 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -17 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -7 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = 0;
+                    await InvokeAsync(StateHasChanged);
+
+                }
+            }
+            else if (racingGraphObject.PreviousIndex == 2)
+            {
+                if (racingGraphObject.Index == 0)
+                {
+                    racingGraphObject.Top = 87 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 77 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 67 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 57 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 47 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 37 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 27 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 17 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 7 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = 0;
+                    await InvokeAsync(StateHasChanged);
+
+                }
+                else if (racingGraphObject.Index == 1)
+                {
+                    racingGraphObject.Top = 87;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 77;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 67;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 57;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 47;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 37;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 27;
+                    await InvokeAsync(StateHasChanged);
+
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 17;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 7;
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = 0;
+                    await InvokeAsync(StateHasChanged);
+                }
+                else if (racingGraphObject.Index == 3)
+                {
+                    racingGraphObject.Top = -87;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -77;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -67;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -57;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -47;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -37;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -27;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -17;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = -7;
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = 0;
+                    await InvokeAsync(StateHasChanged);
+
+                }
+            }
+            else if (racingGraphObject.PreviousIndex == 3)
+            {
+                if (racingGraphObject.Index == 0)
+                {
+                    racingGraphObject.Top = 87 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 77 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 67 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 57 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 47 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 37 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 27 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 17 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 7 * 3;
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = 0;
+                    await InvokeAsync(StateHasChanged);
+
+                }
+                else if (racingGraphObject.Index == 1)
+                {
+                    racingGraphObject.Top = 87 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 77 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 67 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 57 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 47 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 27 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 27 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 17 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 7 * 2;
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = 0;
+                    await InvokeAsync(StateHasChanged);
+
+                }
+                else if (racingGraphObject.Index == 2)
+                {
+                    racingGraphObject.Top = 87;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 77;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 67;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 57;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 47;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 27;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 27;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 17;
+                    await InvokeAsync(StateHasChanged);
+
+                    await Task.Delay(80);
+                    racingGraphObject.Top = 7;
+                    await InvokeAsync(StateHasChanged);
+
+                    racingGraphObject.Top = 0;
+                    await InvokeAsync(StateHasChanged);
+
                 }
             }
         }
