@@ -13,6 +13,8 @@ namespace DM2BD.RacingGraph
         [Parameter]
         public List<ItemType> Items { get; set; }
         [Parameter]
+        public int NumberOfBarsDisplayed { get; set; } = 4;
+        [Parameter]
         public Func<ItemType, List<double>> ScoreListSelector { get; set; }
         [Parameter]
         public Func<ItemType, string> ImageURLSelector { get; set; }
@@ -49,7 +51,18 @@ namespace DM2BD.RacingGraph
             int i = 0;
             foreach(ItemType item in Items.OrderByDescending(x => (ScoreListSelector(x)).ElementAt(0)))
             {
-                RacingGraphObjects.Add(new RacingGraphObject<ItemType> { Index = i, Item = item });
+                RacingGraphObjects.Add(new RacingGraphObject<ItemType> 
+                { 
+                    Index = i, 
+                    Item = item, 
+                    DateIndex = 0, 
+                    ImageByteArraySelector = this.ImageByteArraySelector, 
+                    NumberOfBarsDisplayed = this.NumberOfBarsDisplayed, 
+                    ScoreListSelector = this.ScoreListSelector, 
+                    ImageURLSelector = this.ImageURLSelector, 
+                    MaxValue = 40, 
+                    NameSelector = this.NameSelector 
+                });
             }
         }
 
