@@ -56,7 +56,7 @@ namespace DM2BD.RacingGraph
                 if (i == 0) MaxValue = ScoreListSelector(item).ElementAt(0);
                 RacingGraphObjects.Add(new RacingGraphObject<ItemType>
                 {
-                    Index = i,
+                    Index = i++,
                     Item = item,
                     DateIndex = 0,
                     ImageByteArraySelector = this.ImageByteArraySelector,
