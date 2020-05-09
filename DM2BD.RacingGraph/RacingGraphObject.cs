@@ -30,6 +30,7 @@ namespace DM2BD.RacingGraph
                     if (value < NumberOfBarsDisplayed || _index < NumberOfBarsDisplayed)
                         AnimateChange(value, _index);
                 }
+                _index = value;
             }
         }
 
@@ -37,7 +38,10 @@ namespace DM2BD.RacingGraph
         {
             get => Index < NumberOfBarsDisplayed ? "" : "display: none;";
         }
-        public int Top { get; set; }
+        public int Top 
+        {
+            get => Index * 87;
+        }
         protected void AnimateChange(int newIndex, int oldIndex)
         {
 

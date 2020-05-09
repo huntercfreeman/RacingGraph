@@ -51,6 +51,7 @@ namespace DM2BD.RacingGraph
             int i = 0;
             foreach(ItemType item in Items.OrderByDescending(x => (ScoreListSelector(x)).ElementAt(0)))
             {
+                if (i == 0) MaxValue = ScoreListSelector(item).ElementAt(0);
                 RacingGraphObjects.Add(new RacingGraphObject<ItemType> 
                 { 
                     Index = i, 
@@ -60,7 +61,7 @@ namespace DM2BD.RacingGraph
                     NumberOfBarsDisplayed = this.NumberOfBarsDisplayed, 
                     ScoreListSelector = this.ScoreListSelector, 
                     ImageURLSelector = this.ImageURLSelector, 
-                    MaxValue = 40, 
+                    MaxValue = (int)MaxValue, 
                     NameSelector = this.NameSelector 
                 });
             }
@@ -79,10 +80,12 @@ namespace DM2BD.RacingGraph
             {
                 if (DateIndex != 0)
                 {
-                    RacingGraphObjects = RacingGraphObjects
+                    var racingGraphObjectsSorted = RacingGraphObjects
                             .OrderByDescending(x => (ScoreListSelector(x.Item))
-                            .ElementAt(DateIndex))
-                            .Select((x, i) => { x.Index = i; return x; })
+                            .ElementAt(DateIndex));
+
+                    RacingGraphObjects = racingGraphObjectsSorted
+                            .Select((x, i) => { x.Index = i; x.MaxValue = racingGraphObjectsSorted.ElementAt(0).MaxValue; return x; })
                             .ToList();
                 }
                 await InvokeAsync(StateHasChanged);
