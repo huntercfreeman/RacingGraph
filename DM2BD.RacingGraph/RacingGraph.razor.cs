@@ -81,11 +81,10 @@ namespace DM2BD.RacingGraph
                 if (DateIndex != 0)
                 {
                     var racingGraphObjectsSorted = RacingGraphObjects
-                            .OrderByDescending(x => (ScoreListSelector(x.Item))
-                            .ElementAt(DateIndex));
+                            .OrderByDescending(x => (ScoreListSelector(x.Item)).ElementAt(DateIndex));
 
                     RacingGraphObjects = racingGraphObjectsSorted
-                            .Select((x, i) => { x.Index = i; x.MaxValue = racingGraphObjectsSorted.ElementAt(0).MaxValue; return x; })
+                            .Select((x, i) => { x.DateIndex = DateIndex; x.Index = i; x.MaxValue = racingGraphObjectsSorted.ElementAt(0).MaxValue; return x; })
                             .ToList();
                 }
                 await InvokeAsync(StateHasChanged);
