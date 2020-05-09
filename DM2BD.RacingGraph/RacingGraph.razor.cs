@@ -26,6 +26,8 @@ namespace DM2BD.RacingGraph
         public Func<ItemType, ItemType, bool> Comparer { get; set; }
         [Parameter]
         public List<DateTime> Dates { get; set; }
+        [Parameter]
+        public int AnimationDelayBetweenDates { get; set; } = 2000;
         // must specify unit with value Ex: 10px, 10vh, 10vw...
         [Parameter]
         public string Height { get; set; }
@@ -52,17 +54,18 @@ namespace DM2BD.RacingGraph
             foreach(ItemType item in Items.OrderByDescending(x => (ScoreListSelector(x)).ElementAt(0)))
             {
                 if (i == 0) MaxValue = ScoreListSelector(item).ElementAt(0);
-                RacingGraphObjects.Add(new RacingGraphObject<ItemType> 
-                { 
-                    Index = i, 
-                    Item = item, 
-                    DateIndex = 0, 
-                    ImageByteArraySelector = this.ImageByteArraySelector, 
-                    NumberOfBarsDisplayed = this.NumberOfBarsDisplayed, 
-                    ScoreListSelector = this.ScoreListSelector, 
-                    ImageURLSelector = this.ImageURLSelector, 
-                    MaxValue = (int)MaxValue, 
-                    NameSelector = this.NameSelector 
+                RacingGraphObjects.Add(new RacingGraphObject<ItemType>
+                {
+                    Index = i,
+                    Item = item,
+                    DateIndex = 0,
+                    ImageByteArraySelector = this.ImageByteArraySelector,
+                    NumberOfBarsDisplayed = this.NumberOfBarsDisplayed,
+                    ScoreListSelector = this.ScoreListSelector,
+                    ImageURLSelector = this.ImageURLSelector,
+                    MaxValue = (int)MaxValue,
+                    NameSelector = this.NameSelector,
+                    AnimationDelayBetweenDates = AnimationDelayBetweenDates
                 });
             }
         }
@@ -88,7 +91,7 @@ namespace DM2BD.RacingGraph
                             .ToList();
                 }
                 await InvokeAsync(StateHasChanged);
-                await Task.Delay(1900);
+                await Task.Delay(AnimationDelayBetweenDates);
                 DateIndex++;
             }
         }

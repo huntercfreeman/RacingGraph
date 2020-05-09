@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DM2BD.RacingGraph
 {
@@ -11,7 +12,7 @@ namespace DM2BD.RacingGraph
         public ItemType Item { get; set; }
         
         public Func<ItemType, List<double>> ScoreListSelector { get; set; }
-        
+        public int AnimationDelayBetweenDates { get; set; }
         public Func<ItemType, string> ImageURLSelector { get; set; }
         public int DateIndex { get; set; }
         public int MaxValue { get; set; }
@@ -53,8 +54,27 @@ namespace DM2BD.RacingGraph
                 _top = value;
             }
         }
-        protected void AnimateChange(int newIndex, int oldIndex)
+        protected async void AnimateChange(int newIndex, int oldIndex)
         {
+            Animating = true;
+
+            int oldTop = oldIndex * 87;
+            int newTop = newIndex * 87;
+            
+            Top = oldTop;
+
+            int animationChange = Math.Abs(oldTop - newTop) / 10;
+
+            int animationTime = AnimationDelayBetweenDates / 10;
+
+            while ((AnimationDelayBetweenDates -= animationTime) > 0)
+            {
+
+                Top += animationChange;
+                await Task.Delay(animationTime);
+            }
+
+            Animating = false;
         }
     }
 }
