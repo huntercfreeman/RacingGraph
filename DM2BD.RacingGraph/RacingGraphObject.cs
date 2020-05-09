@@ -17,7 +17,8 @@ namespace DM2BD.RacingGraph
         public int DateIndex { get; set; }
         public int MaxValue { get; set; }
         public Func<ItemType, byte[]> ImageByteArraySelector { get; set; }
-        
+        public int AnimationFrames { get; set; }
+
         public Func<ItemType, string> NameSelector { get; set; }
         private int _index;
         
@@ -63,9 +64,9 @@ namespace DM2BD.RacingGraph
             
             Top = oldTop;
 
-            int animationChange = (newTop - oldTop) / 10;
+            int animationChange = (newTop - oldTop) / AnimationFrames;
 
-            int animationTime = AnimationDelayBetweenDates / 10;
+            int animationTime = AnimationDelayBetweenDates / AnimationFrames;
             int delay = AnimationDelayBetweenDates;
             while ((delay -= animationTime) > 0)
             {

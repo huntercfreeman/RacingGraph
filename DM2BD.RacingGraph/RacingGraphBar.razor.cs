@@ -15,7 +15,7 @@ namespace DM2BD.RacingGraph
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            int animationTime = RacingGraphObject.AnimationDelayBetweenDates / 10;
+            int animationTime = RacingGraphObject.AnimationDelayBetweenDates / RacingGraphObject.AnimationFrames;
 
             while (RacingGraphObject.AnimationDelayBetweenDates > 0)
             {

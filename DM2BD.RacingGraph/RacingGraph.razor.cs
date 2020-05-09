@@ -28,6 +28,8 @@ namespace DM2BD.RacingGraph
         public List<DateTime> Dates { get; set; }
         [Parameter]
         public int AnimationDelayBetweenDates { get; set; } = 2000;
+        [Parameter]
+        public int AnimationFrames { get; set; } = 10;
         // must specify unit with value Ex: 10px, 10vh, 10vw...
         [Parameter]
         public string Height { get; set; }
@@ -65,7 +67,8 @@ namespace DM2BD.RacingGraph
                     ImageURLSelector = this.ImageURLSelector,
                     MaxValue = (int)MaxValue,
                     NameSelector = this.NameSelector,
-                    AnimationDelayBetweenDates = AnimationDelayBetweenDates
+                    AnimationDelayBetweenDates = AnimationDelayBetweenDates,
+                    AnimationFrames = AnimationFrames
                 });
             }
         }
