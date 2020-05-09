@@ -38,13 +38,23 @@ namespace DM2BD.RacingGraph
         {
             get => Index < NumberOfBarsDisplayed ? "" : "display: none;";
         }
+        public bool Animating { get; set; }
+
+        private int _top;
         public int Top 
         {
-            get => Index * 87;
+            get
+            {
+                if (!Animating) return Index * 87;
+                return _top;
+            }
+            set
+            {
+                _top = value;
+            }
         }
         protected void AnimateChange(int newIndex, int oldIndex)
         {
-
         }
     }
 }
