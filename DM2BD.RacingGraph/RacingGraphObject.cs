@@ -6,18 +6,41 @@ namespace DM2BD.RacingGraph
 {
     public class RacingGraphObject<ItemType>
     {
-        public int Index { get; set; }
-        public int PreviousIndex { get; set; }
+        public int NumberOfBarsDisplayed { get; set; }
+     
         public ItemType Item { get; set; }
-        public bool StartAnimation { get; set; }
-        public double Top { get; set; }
-        public bool IsDisplayed { get; set; } = true;
-        public string DisplayCSS 
-        { 
-            get
+        
+        public Func<ItemType, List<double>> ScoreListSelector { get; set; }
+        
+        public Func<ItemType, string> ImageURLSelector { get; set; }
+        public int DateIndex { get; set; }
+        public int MaxValue { get; set; }
+        public Func<ItemType, byte[]> ImageByteArraySelector { get; set; }
+        
+        public Func<ItemType, string> NameSelector { get; set; }
+        private int _index;
+        
+        public int Index
+        {
+            get => _index;
+            set
             {
-                return IsDisplayed ? "" : "display: none;";
+                if (value != _index)
+                {
+                    if (value < NumberOfBarsDisplayed || _index < NumberOfBarsDisplayed)
+                        AnimateChange(value, _index);
+                }
             }
+        }
+
+        public string DisplayCSS
+        {
+            get => Index < NumberOfBarsDisplayed ? "" : "display: none;";
+        }
+        public int Top { get; set; }
+        protected void AnimateChange(int newIndex, int oldIndex)
+        {
+
         }
     }
 }

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RacingGraph", "RacingGraph\RacingGraph.csproj", "{B45176F1-DFD1-4A16-B53E-CE1C2606A565}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RacingGraph", "RacingGraph\RacingGraph.csproj", "{B45176F1-DFD1-4A16-B53E-CE1C2606A565}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DM2BD.RacingGraph", "DM2BD.RacingGraph\DM2BD.RacingGraph.csproj", "{164959D5-3219-46B1-966E-67682C075A3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DM2BD.RacingGraph", "DM2BD.RacingGraph\DM2BD.RacingGraph.csproj", "{164959D5-3219-46B1-966E-67682C075A3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

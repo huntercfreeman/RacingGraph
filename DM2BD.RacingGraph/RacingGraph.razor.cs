@@ -28,11 +28,8 @@ namespace DM2BD.RacingGraph
         [Parameter]
         public string Height { get; set; }
         public int DateIndex { get; set; } = 0;
-        public List<RacingGraphObject<ItemType>> TopFour { get; set; } = new List<RacingGraphObject<ItemType>>();
         public double MaxValue { get; set; }
         public List<RacingGraphObject<ItemType>> RacingGraphObjects { get; set; } = new List<RacingGraphObject<ItemType>>();
-        public List<RacingGraphObject<ItemType>> RacingGraphObjectsOrdered { get; set; } = new List<RacingGraphObject<ItemType>>();
-        public List<RacingGraphObject<ItemType>> NoLongerTopFour { get; set; } = new List<RacingGraphObject<ItemType>>();
 
         bool StartAnimation { get; set; }
         private double _top;
@@ -50,7 +47,7 @@ namespace DM2BD.RacingGraph
             base.OnInitialized();
 
             int i = 0;
-            foreach(ItemType item in Items)
+            foreach(ItemType item in Items.OrderByDescending(x => (ScoreListSelector(x)).ElementAt(0)))
             {
                 RacingGraphObjects.Add(new RacingGraphObject<ItemType> { Index = i, Item = item });
             }
@@ -67,71 +64,21 @@ namespace DM2BD.RacingGraph
         {
             while(DateIndex != Dates.Count)
             {
-
                 if (DateIndex != 0)
                 {
-                    RacingGraphObjectsOrdered = RacingGraphObjectsOrdered
-                        .OrderByDescending(x => (ScoreListSelector(x.Item))
-                        .ElementAt(DateIndex))
-                        .Select((x, i) => { x.PreviousIndex = x.Index; x.Index = i; StartAnimation = true; return x; })
-                        .ToList();
+                    RacingGraphObjects = RacingGraphObjects
+                            .OrderByDescending(x => (ScoreListSelector(x.Item))
+                            .ElementAt(DateIndex))
+                            .Select((x, i) => { x.Index = i; return x; })
+                            .ToList();
                 }
-                else
-                {
-                    RacingGraphObjectsOrdered = RacingGraphObjects
-                    .OrderByDescending(x => (ScoreListSelector(x.Item)).ElementAt(DateIndex))
-                    .Select((x, i) => new RacingGraphObject<ItemType> { PreviousIndex = 5, Index = i, Item = x.Item, StartAnimation = true })
-                    .ToList();
-                }
-
-                List<RacingGraphObject<ItemType>> previousTopFour = TopFour;
-
-                TopFour = RacingGraphObjectsOrdered.Take(4).ToList();
-
-                MaxValue = TopFour.Max(x => (ScoreListSelector(x.Item)).ElementAt(DateIndex));
-
                 await InvokeAsync(StateHasChanged);
-
-                NoLongerTopFour = new List<RacingGraphObject<ItemType>>();
-                foreach(var item in previousTopFour)
-                {
-                    var k = TopFour.Where(x => Comparer(x.Item, item.Item)).FirstOrDefault();
-                    if(k == null)
-                    {
-                        NoLongerTopFour.Add(item);
-                    }
-                }
-                foreach(RacingGraphObject<ItemType> racingGraphObject in NoLongerTopFour)
-                {
-                    Animate(racingGraphObject);
-                }
-                foreach(RacingGraphObject<ItemType> racingGraphObject in TopFour)
-                {
-                    Animate(racingGraphObject);
-                }
-                //AnimationClock();
-                //AnimateScreen();
-                await Task.Delay(2500);
+                await Task.Delay(1900);
                 DateIndex++;
             }
         }
 
-        public async void AnimationClock()
-        {
-            StartAnimation = true;
-            await Task.Delay(1900);
-            StartAnimation = false;
-        }
-
-        public async void AnimateScreen()
-        {
-            while(StartAnimation)
-            {
-                await Task.Delay(10);
-                await InvokeAsync(StateHasChanged);
-            }
-        }
-
+        /*
         public async void Animate(RacingGraphObject<ItemType> racingGraphObject) 
         {
             if (racingGraphObject.Index > 3)
@@ -946,5 +893,6 @@ namespace DM2BD.RacingGraph
                 }
             }
         }
+        */
     }
 }
