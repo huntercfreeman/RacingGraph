@@ -68,7 +68,8 @@ namespace DM2BD.RacingGraph
                     MaxValue = (int)MaxValue,
                     NameSelector = this.NameSelector,
                     AnimationDelayBetweenDates = AnimationDelayBetweenDates,
-                    AnimationFrames = AnimationFrames
+                    AnimationFrames = AnimationFrames,
+                    Width = (ScoreListSelector(item).ElementAt(DateIndex) / MaxValue * 60)
                 });
             }
         }

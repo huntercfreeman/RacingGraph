@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -55,16 +56,35 @@ namespace DM2BD.RacingGraph
                 _top = value;
             }
         }
+
+        private double _width;
+        public double Width
+        {
+            get
+            {
+                if (!Animating) return (ScoreListSelector(Item).ElementAt(DateIndex) / MaxValue * 60);
+                return _width;
+            }
+            set
+            {
+                _width = value;
+            }
+        }
+
         protected async void AnimateChange(int newIndex, int oldIndex)
         {
             Animating = true;
 
+            double oldWidth = Width;
+            double newWidth = (ScoreListSelector(Item).ElementAt(DateIndex) / MaxValue * 60);
+
             int oldTop = oldIndex * 87;
             int newTop = newIndex * 87;
-            
+
             Top = oldTop;
 
             int animationChange = (newTop - oldTop) / AnimationFrames;
+            double animationWidthChange = (newWidth - oldWidth) / AnimationFrames;
 
             int animationTime = AnimationDelayBetweenDates / AnimationFrames;
             int delay = AnimationDelayBetweenDates;
@@ -72,6 +92,7 @@ namespace DM2BD.RacingGraph
             {
 
                 Top += animationChange;
+                Width += animationWidthChange;
                 await Task.Delay(animationTime);
             }
 
